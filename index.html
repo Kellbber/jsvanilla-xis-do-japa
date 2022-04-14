@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="/script.js" defer></script>
+    <title>Xis do Japa</title>
+  </head>
+  <body>
+    <section class="Home">
+          <header class="Header">
+            <div class="row">
+              <div class="Logo">
+                <img
+                  src="./icons/logo.jpg"
+                  width="70px"
+                  alt="Logo Xis do Japa"
+                  class="Logo__icone"
+                />
+                <span class="Logo__titulo"> Xis do Japa </span>
+              </div>
+    
+              <div class="Header__opcoes Opcoes">
+                <div class="Opcoes__sacola Sacola">
+                  <img
+                    src="./icons/sacola.svg"
+                    width="40px"
+                    class="Sacola__icone"
+                    alt="Sacola de compras"
+                  />
+                </div>
+              </div>
+            </div>
+          </header>
+          <section class="button-modal-create">
+            <button type="button" class="botao-padrao" id="botaoAbrir" onclick="abrirModal()">CADASTRAR XIS</button>
+          </section>
+
+          <section class="modal-overlay" id="overlay">
+            <div class="modal">
+              <div class="modal-header">
+                <h2 id="titulo-header-modal">CADASTRAR NOVO XIS</h2>
+                <a onclick="fecharModal()" class="close-modal" >x</a>
+              </div>
+              <div class="modal-body">
+              <div>
+                <input type="hidden" id="id">
+                <input type="text" name="sabor" id="sabor" placeholder="Digite o sabor">
+                <input type="number" name="preco" id="preco" placeholder="Digite o preço">
+                <textarea type="text" name="descricao" id="descricao" placeholder="Digite a descrição" rows="5">  </textarea>
+                <input type="text" name="foto" id="foto" placeholder="Digite o link da foto">
+                <button id="button-form-modal"onclick="createXis()">CADASTRAR</button>
+              </div>
+            </div>
+            
+            </div>
+
+          </section>
+        
+      <h2>Pesquisar Xis</h2>
+      <div class="xis-escolhido-espaco">
+          <div id="xis-escolhido-input-espaco">
+              <input type="number" id="idXis" placeholder="Digite o ID do Xis e clique em 'Escolher'" />
+              <button class="botao-padrao" onclick="findByIdXis()">ESCOLHER</button>
+          </div>
+          <div id="XisEscolhido">
+
+          </div>
+          <br>
+      <h2>Xis Disponíveis:</h2>
+      <br>
+      <div class="Home__container">
+        <div class="xisLista" id="xisList"></div>
+      </div>
+    </section>
+
+    
+  </body>
+</html>
