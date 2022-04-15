@@ -6,6 +6,8 @@ const findAllXis = async () => {
 
   const xis = await response.json();
 
+  console.log(xis);
+
   xis.forEach((xis) => {
     document.querySelector("#xisList").insertAdjacentHTML(
       "beforeend",
@@ -18,7 +20,7 @@ const findAllXis = async () => {
 
       <div class="XisListaItem__acoes Acoes">
       <button id="btn__editar" class="acoes__editar btn" onclick="abrirModal(${xis.id})">EDITAR</button>
-      <button class="acoes__apagar btn">DELETAR</button>
+      <button onclick="deleteXis(${xis.id})" class="acoes__apagar btn">DELETAR</button>
         </div>
 
       </div>
@@ -41,14 +43,14 @@ const findByIdXis = async () =>{
   XisEscolhidoDiv.innerHTML = 
   `
   <div class="XisCardItem" id="XisListaItem_${xis.id}">
-      <div>
-    <div class="XisCarItem__sabor">${xis.sabor}</div>
-    <div class="XisCardItem__preco">${xis.preco}</div>
-    <div class="XisCardItem__descricao">${xis.descricao}</div>
-  </div>
+    <div>
+      <div class="XisCardItem__sabor">${xis.sabor}</div>
+      <div class="XisCardItem__preco">${xis.preco}</div>
+      <div class="XisCardItem__descricao">${xis.descricao}</div>
+    </div>
     <div class="XisListaItem__acoes Acoes">
-    <button id="btn__editar" class="acoes__editar btn" onclick="abrirModal(${xis.id})">EDITAR</button>
-  <button class="acoes__apagar btn">DELETAR</button>
+      <button id="btn__editar" class="acoes__editar btn" onclick="abrirModal(${xis.id})">EDITAR</button>
+      <button onclick="deleteXis(${novoXis.id})" class="acoes__apagar btn">DELETAR</button>
     </div>
   <img class="XisCardItem__foto" src= ${xis.foto} alt="${xis.sabor}" />
 </div>
@@ -67,7 +69,7 @@ async function abrirModal(id = null){
 
     const xis = await response.json();
 
-    document.querySelector("#id").value;
+    document.querySelector("#id").value = xis.id;
 
     document.querySelector("#sabor").value = xis.sabor;
 
@@ -113,9 +115,10 @@ function fecharModal() {
     foto,
   };
 
-  const modoAtivado = id >0;
+  
+  const modoAtivado = id > 0;
 
-  const endpoint = baseURL + (modoAtivado ? `/update${id}` : `/create`)
+  const endpoint = baseURL + (modoAtivado ? `/update/${id}` : `/create`)
 
 
   const response = await fetch(endpoint, {
@@ -130,26 +133,49 @@ function fecharModal() {
 
   const novoXis = await response.json();
 
- const html = `<div class="XisListaItem" id="XisListaItem_${xis.id}">
-    <div>
-      <div class="XisistaItem__sabor">${novoXis.sabor}</div>
-      <div class="XisListaItem__preco">R$ ${novoXis.preco}</div>
-      <div class="XisListaItem__descricao">${novoXis.descricao}</div>
-    </div>
-    <div class="XisListaItem__acoes Acoes">
-      <button id="btn__editar" class="acoes__editar btn" onclick="abrirModal(${xis.id})">EDITAR</button>
-      <button class="acoes__apagar btn">DELETAR</button>
-    </div>
-    <img class="XisaListaItem__foto" src=${
-      novoXis.foto
-    } alt=${`Paleta de ${novoXis.sabor}`} />
-  </div>`;
+  console.log(novoXis);
 
-    if(modoAtivado){
-    document.querySelector(`#id=XisListaItem_${id}`).outerHTML = html;
-    }else{
-      document.getElementById("#xisList").insertAdjacentHTML("beforeend", html);
-    }
+  const html = `
+  <div class="XisListaItem" id="XisListaItem_${novoXis.id}">
+        <div>
+      <div class="XisListaItem__sabor">${novoXis.sabor}</div>
+      <div class="XisListaItem__preco">${novoXis.preco}</div>
+      <div class="XisListaItem__descricao">${novoXis.descricao}
 
-fecharModal();
+      <div class="XisListaItem__acoes Acoes">
+      <button id="btn__editar" class="acoes__editar btn" onclick="abrirModal(${novoXis.id})">EDITAR</button>
+      <button onclick="deleteXis(${novoXis.id})" class="acoes__apagar btn">DELETAR</button>
+        </div>
+
+      </div>
+    </div>
+    <img class="XisListaItem__foto" src= ${novoXis.foto} alt="${novoXis.sabor}" />
+
+  </div>
+    `;
+
+  if (modoAtivado) {
+    document.querySelector("#XisListaItem_" + novoXis.id).outerHTML = html;
+  } else {
+    document.querySelector("#xisList").insertAdjacentHTML("beforeend", html);
+  }
+
+    fecharModal()
 }
+  
+async function deleteXis(id){
+  const response = await fetch(`${baseURL}/delete/${id}`, {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+  });
+
+
+  document.querySelector("#xisList").innerHTML = "";
+  findAllXis();
+
+}
+
+
