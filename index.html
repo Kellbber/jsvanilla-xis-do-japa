@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.css" />
     <script src="/script.js" defer></script>
+    <script src="/scriptValidacao.js" defer></script>
     <title>Xis do Japa</title>
   </head>
   <body>
@@ -19,13 +20,13 @@
                   alt="Logo Xis do Japa"
                   class="Logo__icone"
                 />
-                <span class="Logo__titulo"> Xis do Japa </span>
+                <a href="/"class="Logo__titulo"> Xis do Japa </a>
               </div>
     
               <div class="Header__opcoes Opcoes">
                 <div class="Opcoes__sacola Sacola">
                   <img
-                    src="./icons/sacola.svg"
+                    src="./icons/sacola.png"
                     width="40px"
                     class="Sacola__icone"
                     alt="Sacola de compras"
@@ -45,14 +46,21 @@
                 <a onclick="fecharModal()" class="close-modal" >x</a>
               </div>
               <div class="modal-body">
-              <div>
+              
+                <div>
+
                 <input type="hidden" id="id">
-                <input type="text" name="sabor" id="sabor" placeholder="Digite o sabor">
-                <input type="number" name="preco" id="preco" placeholder="Digite o preço">
-                <textarea type="text" name="descricao" id="descricao" placeholder="Digite a descrição" rows="5">  </textarea>
-                <input type="text" name="foto" id="foto" placeholder="Digite o link da foto">
-                <button id="button-form-modal"onclick="createXis()">CADASTRAR</button>
-              </div>
+               
+                <input type="text" name="sabor" id="sabor" required placeholder="Digite o sabor" >
+                
+                <input type="number" name="preco" id="preco" required placeholder="Digite o preço" >
+                
+                <textarea type="text" name="descricao" id="descricao" required placeholder="Digite a descrição" rows="5" >  </textarea>
+                
+                <input type="text" name="foto" id="foto" required placeholder="Use como modelo: /images/xcarne.png" >
+                <button type="submit" id="button-form-modal"onclick="createXis()">CADASTRAR</button>
+              
+                </div>
             </div>
             
             </div>

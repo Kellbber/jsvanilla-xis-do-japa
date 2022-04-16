@@ -42,18 +42,15 @@ const findByIdXis = async () =>{
 
   XisEscolhidoDiv.innerHTML = 
   `
-  <div class="XisCardItem" id="XisListaItem_${xis.id}">
-    <div>
-      <div class="XisCardItem__sabor">${xis.sabor}</div>
-      <div class="XisCardItem__preco">${xis.preco}</div>
-      <div class="XisCardItem__descricao">${xis.descricao}</div>
+  <div class="XisListaItem" id="XisListaItem_${xis.id}">
+        <div>
+      <div class="XisListaItem__sabor">${xis.sabor}</div>
+      <div class="XisListaItem__preco">${xis.preco}</div>
+      <div class="XisListaItem__descricao">${xis.descricao}
     </div>
-    <div class="XisListaItem__acoes Acoes">
-      <button id="btn__editar" class="acoes__editar btn" onclick="abrirModal(${xis.id})">EDITAR</button>
-      <button onclick="deleteXis(${novoXis.id})" class="acoes__apagar btn">DELETAR</button>
-    </div>
-  <img class="XisCardItem__foto" src= ${xis.foto} alt="${xis.sabor}" />
-</div>
+    <img class="XisListaItem__foto" src= ${xis.foto} alt="${xis.sabor}" />
+
+  </div>
   `
 }
 
@@ -177,5 +174,4 @@ async function deleteXis(id){
   findAllXis();
 
 }
-
 
