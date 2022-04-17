@@ -20,7 +20,7 @@ const findAllXis = async () => {
 
       <div class="XisListaItem__acoes Acoes">
       <button id="btn__editar" class="acoes__editar btn" onclick="abrirModal(${xis.id})">EDITAR</button>
-      <button onclick="deleteXis(${xis.id})" class="acoes__apagar btn">DELETAR</button>
+      <button onclick="abrirModalDelete()(${xis.id})" class="acoes__apagar btn">DELETAR</button>
         </div>
 
       </div>
@@ -92,13 +92,16 @@ async function abrirModal(id = null){
      document.querySelector("#titulo-header-modal").innerText = "CADASTRAR NOVO XIS";
      document.querySelector("#button-form-modal").innerText = "CADASTRAR";
   }
-  document.querySelector(".modal-overlay").style.display = "flex";
+  document.querySelector("#overlay").style.display = "flex";
 }
 
 
 
 function fecharModal() {
   document.querySelector(".modal-overlay").style.display = "none";
+
+  document.querySelector("#id").value = "";
+  
   document.querySelector("#sabor").value = "";
 
   document.querySelector("#preco").value = "";
@@ -144,8 +147,7 @@ function fecharModal() {
 
 
   const novoXis = await response.json();
-
-  console.log(novoXis);
+  console.log(novoXis)
 
   const html = `
   <div class="XisListaItem" id="XisListaItem_${novoXis.id}">
@@ -156,7 +158,7 @@ function fecharModal() {
 
       <div class="XisListaItem__acoes Acoes">
       <button id="btn__editar" class="acoes__editar btn" onclick="abrirModal(${novoXis.id})">EDITAR</button>
-      <button onclick="deleteXis(${novoXis.id})" class="acoes__apagar btn">DELETAR</button>
+      <button onclick="abrirModalDelete(${novoXis.id})" class="acoes__apagar btn">DELETAR</button>
         </div>
 
       </div>
@@ -172,9 +174,19 @@ function fecharModal() {
     document.querySelector("#xisList").insertAdjacentHTML("beforeend", html);
   }
 
-    fecharModal()
+    fecharModal();
 }
-  
+  function abrirModalDelete(id){
+    document.querySelector("#overlay-delete").style.display = "flex"
+    const btnSim = document.querySelector(".btn_delete_yes");
+    btnSim.addEventListener("click", function(){
+      deleteXis(id)
+    })
+  }
+  function fecharModalDelete(){
+    document.querySelector("#overlay-delete").style.display = "none"
+  }
+
 async function deleteXis(id){
   const response = await fetch(`${baseURL}/delete/${id}`, {
     method: "delete",
@@ -184,9 +196,12 @@ async function deleteXis(id){
     mode: "cors",
   });
 
-
+  const result = await response.json();
+  alert(result.message)
   document.querySelector("#xisList").innerHTML = "";
+  fecharModalDelete();
   findAllXis();
 
 }
 
+  

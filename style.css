@@ -380,3 +380,52 @@ justify-content: center;
   background-color: #d73939;
   border: solid 1.3px gray;
 }
+.modal-body-delete{
+  display: flex;
+  flex-wrap: wrap;
+
+}
+.modal-body-delete p{
+width: 100%;
+padding: 2rem;
+text-align: center;
+font-size: 1.5rem;
+}
+.btns_delete{
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+
+}
+.btn-delete{
+  width: 30%;
+  background-color: transparent;
+  padding: .5rem;
+  font-size: 1.2rem;
+  border-radius: .5rem;
+  
+}
+
+.btn_delete_no{
+  color: red;
+  border: solid 1px red;
+  width: 30%;
+  transition: .3s ease-in-out;
+  
+}
+.btn_delete_yes{
+  color: green;
+  border: solid 1px green;
+  padding: .5rem;
+  width: 30%;
+  transition: .3s ease-in-out;
+}
+.btn_delete_no:hover{
+  background-color: red;
+  color: white;
+}
+
+.btn_delete_yes:hover{
+  background-color: green;
+  color: white;
+}
