@@ -160,7 +160,11 @@ html {
   margin: 0 auto 25px auto;
   position: relative;
 }
-
+.buttonDisable{
+  border: 2px solid gray !important;
+  background-color: white !important;
+  color: gray !important;
+}
 .row {
   display: flex;
   width: 100%;

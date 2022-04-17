@@ -50,12 +50,16 @@
                 <div>
 
                 <input type="hidden" id="id">
-               
-                <input type="text" name="sabor" id="sabor" required placeholder="Digite o sabor" >
-                
+
+                <label id="labelSabor" for="sabor">Sabor:</label>
+                <input type="text" onchange="" name="sabor" id="sabor" required placeholder="Digite o sabor" >
+                <label id="labelPreco" for="preco">Preco:</label>
+
                 <input type="number" name="preco" id="preco" required placeholder="Digite o preço" >
-                
+                <label id="labelDescricao" for="descricao">Descrição:</label>
+
                 <textarea type="text" name="descricao" id="descricao" required placeholder="Digite a descrição" rows="5" >  </textarea>
+                <label id="labelFoto" for="foto">Foto:</label>
                 
                 <input type="text" name="foto" id="foto" required placeholder="Use como modelo: /images/xcarne.png" >
                 <button type="submit" id="button-form-modal"onclick="createXis()">CADASTRAR</button>

@@ -34,8 +34,9 @@ const findAllXis = async () => {
 };
 const findByIdXis = async () =>{
   const id = document.querySelector("#idXis").value
-
+  
   const response = await fetch(`${baseURL}/o-xis/${id}`)
+  if (response.status !== 404) { 
 
   const xis = await response.json();
   const XisEscolhidoDiv = document.querySelector("#XisEscolhido");
@@ -47,16 +48,26 @@ const findByIdXis = async () =>{
       <div class="XisListaItem__sabor">${xis.sabor}</div>
       <div class="XisListaItem__preco">${xis.preco}</div>
       <div class="XisListaItem__descricao">${xis.descricao}
+      </div>
     </div>
     <img class="XisListaItem__foto" src= ${xis.foto} alt="${xis.sabor}" />
 
   </div>
   `
+  } else {
+    const XisEscolhidoDiv = document.querySelector("#XisEscolhido");
+    XisEscolhidoDiv.innerHTML = `
+    <h2> Nenhum Xis foi encontrado </h2>
+    `
+  }
 }
 
 findAllXis();
 
 async function abrirModal(id = null){
+
+  
+
   if(id != null){
 
     document.querySelector("#titulo-header-modal").innerText = "ATUALIZAR O XIS";
@@ -75,13 +86,17 @@ async function abrirModal(id = null){
     document.querySelector("#descricao").value = xis.descricao;
     
      document.querySelector("#foto").value = xis.foto;
+ 
 
-      }else{
-        document.querySelector("#titulo-header-modal").innerText = "CADASTRAR NOVO XIS";
-        document.querySelector("#button-form-modal").innerText = "CADASTRAR";
-      }
+  }else{
+     document.querySelector("#titulo-header-modal").innerText = "CADASTRAR NOVO XIS";
+     document.querySelector("#button-form-modal").innerText = "CADASTRAR";
+  }
   document.querySelector(".modal-overlay").style.display = "flex";
 }
+
+
+
 function fecharModal() {
   document.querySelector(".modal-overlay").style.display = "none";
   document.querySelector("#sabor").value = "";
